@@ -78,3 +78,4 @@ std::unique_ptr<Entity> makeEnergyCell()
 
 #include "entity_factory.h"
 static auto const reg1 = registerEntity("bonus", [] (IEntityConfig*) { return makeEnergyCell(); });
+
