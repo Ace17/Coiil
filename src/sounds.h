@@ -1,0 +1,20 @@
+#pragma once
+
+enum
+{
+  SND_PAUSE,
+  SND_START,
+  SND_FIRE,
+  SND_JUMP,
+  SND_LAND,
+  SND_SWITCH,
+  SND_DOOR,
+  SND_HURT,
+  SND_DIE,
+  SND_BONUS,
+  SND_DAMAGE,
+  SND_EXPLODE,
+  SND_DISAPPEAR,
+  SND_TELEPORT,
+};
+

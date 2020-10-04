@@ -1,0 +1,8 @@
+/bin
+/bin_host
+/tags
+/res
+.session.vim
+*.blend1
+*.swp
+__pycache__
