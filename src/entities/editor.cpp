@@ -54,6 +54,10 @@ struct Editor : Player
   {
   }
 
+  virtual void addEnergy(float amount) override
+  {
+  }
+
   void computeVelocity(Control c)
   {
     airMove(c);

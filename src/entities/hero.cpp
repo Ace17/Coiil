@@ -55,6 +55,11 @@ struct Hero : Player, Damageable
       view->sendActor(r);
 
     view->setCameraPos(pos + size * 0.5, orientation);
+
+    if(control.debug)
+      view->setAmbientLight(1.0);
+    else
+      view->setAmbientLight(0.01 + flashLight);
   }
 
   void think(Control const& c) override
@@ -72,6 +77,11 @@ struct Hero : Player, Damageable
     upgrades |= upgrade;
     blinking = 2000;
     life = 31;
+  }
+
+  virtual void addEnergy(float amount) override
+  {
+    flashLight += amount;
   }
 
   void computeVelocity(Control c)
@@ -119,6 +129,7 @@ struct Hero : Player, Damageable
 
   virtual void tick() override
   {
+    flashLight = std::max<float>(0, flashLight - 0.00002);
     decrement(blinking);
     decrement(hurtDelay);
 
@@ -216,6 +227,7 @@ struct Hero : Player, Damageable
   Vector vel;
 
   int upgrades = 0;
+  float flashLight = 0;
 };
 
 std::unique_ptr<Player> makeHero()

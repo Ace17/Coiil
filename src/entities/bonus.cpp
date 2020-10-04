@@ -4,7 +4,7 @@
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
 
-// KeyItem entity
+// EnergyCell entity
 
 #include <algorithm>
 #include <cmath> // sin
@@ -20,15 +20,11 @@
 
 namespace
 {
-struct KeyItem : Entity
+struct EnergyCell : Entity
 {
-  KeyItem(int modelAction_, int type_, char const* msg_)
+  EnergyCell()
   {
-    modelAction = modelAction_;
-    type = type_;
-    msg = msg_;
-
-    size = Size(2, 2, 2);
+    size = UnitSize * 0.5;
     solid = false;
     collisionGroup = 0;
     collidesWith = CG_PLAYER | CG_SOLIDPLAYER;
@@ -40,12 +36,16 @@ struct KeyItem : Entity
     r.action = 1;
     r.ratio = 0;
     r.scale = size;
+    r.effect = Effect::Blinking;
+    r.orientation = Quaternion::fromEuler(0, yaw, pitch);
     view->sendActor(r);
   }
 
   virtual void tick() override
   {
     ++time;
+    yaw += 0.0011;
+    pitch += 0.0039;
   }
 
   void onCollide(Entity* other) override
@@ -55,22 +55,26 @@ struct KeyItem : Entity
 
     if(auto player = dynamic_cast<Player*>(other))
     {
-      player->addUpgrade(type);
+      player->addEnergy(0.4);
       game->playSound(SND_BONUS);
-      game->textBox(msg);
+      game->textBox("Got some flashlight energy");
       dead = true;
     }
   }
 
   int time = 0;
-  int modelAction;
   int type;
   char const* msg;
+
+  float yaw = 0;
+  float pitch = 0;
 };
 }
 
-std::unique_ptr<Entity> makeBonus(int visual, int upgradeType, char const* msg)
+std::unique_ptr<Entity> makeEnergyCell()
 {
-  return make_unique<KeyItem>(visual, upgradeType, msg);
+  return make_unique<EnergyCell>();
 }
 
+#include "entity_factory.h"
+static auto const reg1 = registerEntity("bonus", [] (IEntityConfig*) { return makeEnergyCell(); });

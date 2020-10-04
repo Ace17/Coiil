@@ -115,11 +115,6 @@ struct GameState : Scene, private IGame
       m_player->addUpgrade(-1);
     }
 
-    m_view->setAmbientLight(0.1);
-
-    if(m_debug)
-      m_view->setAmbientLight(1.0);
-
     if(m_won)
       return createEndingState(m_view);
 

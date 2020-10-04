@@ -117,35 +117,6 @@ struct NullPhysicsProbe : IPhysicsProbe
   }
 };
 
-unittest("Entity: pickup bonus")
-{
-  struct MockPlayer : NullPlayer
-  {
-    virtual void addUpgrade(int upgrade)
-    {
-      upgrades |= upgrade;
-    }
-
-    int upgrades = 0;
-  };
-
-  NullGame game;
-  NullPhysicsProbe physics;
-  MockPlayer player;
-
-  auto ent = makeBonus(0, 4, "cool");
-  ent->game = &game;
-  ent->physics = &physics;
-
-  assert(!ent->dead);
-  assertEquals(0, player.upgrades);
-
-  ent->onCollide(&player);
-
-  assert(ent->dead);
-  assertEquals(4, player.upgrades);
-}
-
 bool nearlyEquals(float expected, float actual)
 {
   return abs(expected - actual) < 0.01;
