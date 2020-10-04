@@ -37,8 +37,12 @@ struct EndingState : Scene
   Scene* tick(Control c) override
   {
     auto const FADE_TIME = 200;
+    ++time;
 
-    view->playMusic(1);
+    if(time < 650)
+      view->playMusic(2);
+    else
+      view->playMusic(1);
 
     view->textBox("THANKS FOR PLAYING!");
 
@@ -82,6 +86,7 @@ private:
   View* const view;
   bool activated = false;
   int delay = 0;
+  int time = 0;
 };
 
 Scene* createEndingState(View* view)
