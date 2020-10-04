@@ -57,7 +57,7 @@ struct EnergyCell : Entity
     {
       player->addEnergy(0.4);
       game->playSound(SND_BONUS);
-      game->textBox("Got some flashlight energy");
+      game->textBox("Got flashlight battery");
       dead = true;
     }
   }
