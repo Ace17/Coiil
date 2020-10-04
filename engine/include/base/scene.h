@@ -13,6 +13,7 @@ struct Control
   // player directions
   bool forward, backward;
   bool left, right;
+  bool run;
   float look_horz = 0;
   float look_vert = 0;
 

@@ -172,6 +172,7 @@ private:
 
     m_control.start = keys[SDL_SCANCODE_RETURN];
 
+    m_control.run = keys[SDL_SCANCODE_LSHIFT] || keys[SDL_SCANCODE_RSHIFT];
     m_control.left = keys[SDL_SCANCODE_LEFT] || keys[SDL_SCANCODE_A];
     m_control.right = keys[SDL_SCANCODE_RIGHT] || keys[SDL_SCANCODE_D];
     m_control.forward = keys[SDL_SCANCODE_UP] || keys[SDL_SCANCODE_W];
